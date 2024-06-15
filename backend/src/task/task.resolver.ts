@@ -4,6 +4,7 @@ import { Task as TaskModel } from './models/task.model';
 import { TaskService } from './task.service';
 import { Task } from '@prisma/client';
 import { UpdateTaskInput } from './dto/updateTask.input';
+import { DeleteTaskInput } from './dto/deleteTask.input';
 
 @Resolver()
 export class TaskResolver {
@@ -26,5 +27,12 @@ export class TaskResolver {
     @Args('updateTaskInput') updateTaskInput: UpdateTaskInput,
   ): Promise<Task> {
     return await this.taskService.updateTask(updateTaskInput);
+  }
+
+  @Mutation(() => TaskModel)
+  async deleteTask(
+    @Args('deleteTaskInput') deleteTaskInput: DeleteTaskInput,
+  ): Promise<Task> {
+    return await this.taskService.deleteTask(deleteTaskInput);
   }
 }

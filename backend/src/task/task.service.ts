@@ -3,6 +3,7 @@ import { CreateTaskInput } from './dto/createTask.input';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Status, Task } from '@prisma/client';
 import { UpdateTaskInput } from './dto/updateTask.input';
+import { DeleteTaskInput } from './dto/deleteTask.input';
 
 @Injectable()
 export class TaskService {
@@ -33,6 +34,15 @@ export class TaskService {
         description,
       },
       where: { id },
+    });
+  }
+
+  async deleteTask(deleteTaskInput: DeleteTaskInput): Promise<Task> {
+    const { id } = deleteTaskInput;
+    return await this.prismaService.task.delete({
+      where: {
+        id,
+      },
     });
   }
 }
